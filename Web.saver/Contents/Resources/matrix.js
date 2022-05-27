@@ -295,10 +295,10 @@
 
   var matrix = new Matrix({
     canvas: canvas,
-    fontSize: 14,
-    alphaFading: 0.04,
-    randomFactor: 0.995,
-    intervalTime: 120,
+    fontSize: 16,
+    alphaFading: 0.06,
+    randomFactor: 0.996,
+    intervalTime: 66,
   });
   matrix.start();
 })();

@@ -1,12 +1,12 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background: black;
+  background: black;
 }
 
 canvas {
-    display: block;
+  display: block;
 }

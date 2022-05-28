@@ -134,7 +134,7 @@
       ctx.shadowOffsetX = 0;
       ctx.shadowOffsetY = 0;
       ctx.shadowBlur = 3;
-      ctx.font = options.fontSize + "px 'Courier New'";
+      ctx.font = `${options.fontSize}px ${options.fontFamily}`;
 
       for (var x = 0; x < columns.length; x++) {
         var posX = x * options.fontSize;
@@ -248,25 +248,29 @@
     };
 
     var drawNumbers = function () {
-      for (var x = 1; x < xMax; x++) {
+      for (let x = 1; x < xMax; x++) {
         if (x % 16 === 0) continue;
 
-        for (var y = 1; y < yMax; y++) {
+        for (let y = 1; y < yMax; y++) {
           //if (y % 16 === 0) continue;
 
           ctx.shadowOffsetX = 0;
           ctx.shadowOffsetY = 0;
           ctx.shadowBlur = 3;
-          ctx.font = options.fontSize + "px 'Courier New'";
+          ctx.font = `${options.fontSize}px ${options.fontFamily}`;
           ctx.fillStyle = "#0F0";
           ctx.shadowColor = "#0F0";
 
           var posX = x * options.fontSize;
           var posY = y * options.fontSize;
 
-          var num = Math.ceil(Math.random() * 9);
-          if (Math.random() > 0.99) {
-            num = "π";
+          let num = Math.ceil(Math.random() * 9);
+          let change = Math.random();
+          if (change > 0.9) {
+            num =
+              options.specialChars[
+                Math.floor((change - 0.9) * 10 * options.specialChars.length)
+              ];
           }
 
           ctx.fillText(String(num), posX, posY);
@@ -277,14 +281,14 @@
     this.start = function () {
       console.log("starting intro");
       var that = this;
-      var interval = setInterval(draw, 150);
+      var interval = setInterval(draw, 300);
       setTimeout(function () {
         console.log("ending intro");
         clearInterval(interval);
         ctx.fillStyle = "#000";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         that.start.then();
-      }, 2000);
+      }, 5000);
       return that;
     };
 
@@ -293,12 +297,15 @@
     };
   };
 
-  var matrix = new Matrix({
+  const matrix = new Matrix({
     canvas: canvas,
-    fontSize: 16,
+    fontSize: 28,
     alphaFading: 0.06,
     randomFactor: 0.996,
     intervalTime: 66,
+    shadowBlur: 6,
+    specialChars: ["π", "α", "β", "Ω", "@"],
+    fontFamily: "Monaco",
   });
   matrix.start();
 })();
